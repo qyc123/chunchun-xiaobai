@@ -1,0 +1,976 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>小米商城首页</title>
+<link type="text/css" rel="stylesheet" href="CSS/style.css">
+<script type="text/javascript">
+window.onload=function(){
+		var oLi=document.getElementsByClassName("shopping")[0];
+		var oDiv=document.getElementsByClassName("shopping-content")[0];
+		
+		var oUl1=document.getElementsByClassName("se-inf-title")[0];
+		var oLi1=oUl1.getElementsByTagName("li");
+		var oUl2=document.getElementsByClassName("se-inf-content")[0];
+		var oLi2=oUl2.getElementsByTagName("li");
+		var timer=null;
+		
+		var stDiv=document.getElementsByClassName("search-text")[0];
+		var stIn=stDiv.getElementsByTagName("input")[0];
+		var sgDiv=document.getElementsByClassName("search-go")[0];
+		
+		
+		//购物车菜单
+		
+		oLi.onmouseover=function(){
+			//鼠标移入，显示加载内容
+			clearTimeout(timer);
+			oDiv.style.display="block";
+		};
+		oLi.onmouseout=function(){
+			timer=setTimeout(function(){oDiv.style.display="none";},500);
+		}
+		
+		//搜索栏导航菜单
+		for(i=0;i<oLi1.length-2;i++){
+			oLi1[i].index=i;
+			oLi1[i].onmouseover=function(){
+				clearTimeout(timer);
+				for(i=0;i<oLi1.length-2;i++){
+					oLi2[i].style.display="none";
+				}
+				oLi2[this.index].style.display="block";
+				
+			}
+			oLi1[i].onmouseout=function(){
+				var that=this;
+				timer=setTimeout(function(){oLi2[that.index].style.display="none";},500);
+				
+				
+			}
+			
+			
+		}
+		
+		
+		//搜索框效果
+		stIn.onfocus=function(){
+			clearTimeout(timer);
+			timer=setTimeout(function(){sgDiv.style.border="1px solid #f60";
+			stIn.style.border="1px solid #f60";
+			stIn.value="";},0);
+		};
+		stIn.onblur=function(){
+			sgDiv.style.border="1px solid #ccc";
+			stIn.style.border="1px solid #ccc";
+			stIn.value="2016最新商品";
+		}
+		sgDiv.onmouseover=function(){
+			sgDiv.style.background="#F60";
+			sgDiv.style.color="#fff";
+		}
+		sgDiv.onmouseout=function(){
+			sgDiv.style.background="#fff";
+			sgDiv.style.color="#000";
+			
+		}
+		
+		
+		//图片轮播
+		
+		var oAddress=new Array();
+		var curIndex=0;
+		var oShow=document.getElementById("main-img");
+		oAddress[0]="img/T1oTJjBKKT1RXrhCrK.jpg";
+		oAddress[1]="img/T1jrxjB_VT1RXrhCrK.jpg";
+		oAddress[2]="img/T1vWdTBKDv1RXrhCrK.jpg";
+		oAddress[3]="img/T1RICjB7DT1RXrhCrK.jpg";
+		setInterval(function(){
+			if(curIndex==oAddress.length-1){
+				curIndex=0;
+			}else{
+				curIndex+=1;
+			}
+			oShow.src=oAddress[curIndex];
+			},5000);
+		
+		//左右切换
+		var oLeft=document.getElementsByClassName("control-left")[0];
+		var oRight=document.getElementsByClassName("control-right")[0];
+		oShow.onmouseover=function(){
+			clearTimeout(timer);
+			oLeft.style.display="block";
+			oRight.style.display="block";
+		}
+		oShow.onmouseout=function(){
+			timer=setTimeout(function(){
+			oLeft.style.display="none";
+			oRight.style.display="none";},500);
+		}
+		oLeft.onmouseover=function(){
+			oLeft.style.display="block";
+			oLeft.style.background="#333";
+			oLeft.style.color="#f60";
+			
+		};
+		oRight.onmouseover=function(){
+			oRight.style.display="block";
+			
+			oRight.style.background="#333";
+			oRight.style.color="#f60";
+			
+		}
+		oLeft.onmouseout=function(){
+			oLeft.style.background="";
+			oLeft.style.color="#fff";
+		}
+		oRight.onmouseout=function(){
+			oRight.style.background="";
+			oRight.style.color="#fff";
+		}
+		oLeft.onclick=function(){
+			oLeft.style.display="block";
+			oLeft.style.background="#333";
+			oLeft.style.color="#f60";
+			if(curIndex==0){
+				curIndex=oAddress.length-1;
+			}else{
+				curIndex-=1;
+			}
+			oShow.src=oAddress[curIndex];
+		}
+			oRight.onclick=function(){
+				oRight.style.display="block";
+			
+			oRight.style.background="#333";
+			oRight.style.color="#f60";
+			if(curIndex==oAddress.length-1){
+				curIndex=0;
+			}else{
+				curIndex+=1;
+			}
+			oShow.src=oAddress[curIndex];
+		}
+		
+
+		
+		
+};
+</script>
+</head>
+
+<body>
+<div class="top-header">
+   <div class="header-wrapper">
+      <ul class="header-left">
+         <li><a href="#">大米网<span>|</span></a></li>
+         <li><a href="#">MIUI<span>|</span></a></li>
+         <li><a href="#">米聊<span>|</span></a></li>
+         <li><a href="#">游戏<span>|</span></a></li>
+         <li><a href="#">多看阅读<span>|</span></a></li>
+         <li><a href="#">云服务<span>|</span></a></li>
+         <li><a href="#">大米移动版<span>|</span></a></li>
+         <li><a href="#">问题反馈<span>|</span></a></li>
+         <li><a href="#">Select Region<span>|</span></a></li>
+      </ul>
+      <ul class="header-right">
+         <li><a href="#">登陆<span>|</span></a></li>
+          <li><a href="#">注册</a></li>
+           <li class="shopping"><a href="#">购物车(0)</a>
+              <div class="shopping-content">
+                  加载中，请稍候...
+              </div>
+           </li>
+      </ul>
+   </div>
+</div>
+<div class="top-search">
+  <div class="search-wrapper">
+   <div class="search-logo">
+      <img src="img/xiaomi_logo.png" alt="小米logo" >
+   </div>
+   <div class="search-information">
+       <ul class="se-inf-title">
+         <li><a  class="se-inf1" href="#">大米手机</a>
+         </li>
+         <li><a  class="se-inf1" href="#">红米</a></li>
+         <li><a  class="se-inf1" href="#">平板</a></li>
+         <li><a  class="se-inf1" href="#">电视&nbsp;盒子</a></li>
+         <li><a  class="se-inf1" href="#">路由器</a></li>
+         <li><a  class="se-inf1" href="#">智能硬件</a></li>
+         <li><a  class="se-inf2" href="#">服务</a></li>
+         <li><a  class="se-inf2" href="#">社区</a></li>
+       </ul>
+       <ul class="se-inf-content">
+         <li id="se-inf-con1">
+           <div class="se-con">
+               <div class="se-con-title">
+                <img src="img/mi4!160x110.jpg" alt="大米手机4">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                 <p class="se-p1">大米手机4</p>
+                 <p class="se-p2">1499元起</p>
+               </div>
+           </div> 
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/minote!160x110.jpg" alt="大米NOTE标准版">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">大米NOTE标准版</p>
+                  <p class="se-p2">1999元起</p>
+               </div>
+           </div>
+           <div class="se-con">
+           <div class="se-con-title">
+                <img src="img/minotepro!160x110.jpg" alt="大米NOTE顶配版">
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">大米NOTE顶配版</p>
+                 <p class="se-p2">2999元起</p>
+               </div>
+           </div>         
+         </li>
+         <li id="se-inf-con2">
+            <div class="se-con">
+               <div class="se-con-title">
+                <img src="img/hongmi2a!160x110.jpg" alt="红米手机2A">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                 <p class="se-p1">红米手机2A</p>
+                 <p class="se-p2">499元</p>
+               </div>
+           </div> 
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/hongmi2!160x110.jpg" alt="红米手机2">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">红米手机2</p>
+                  <p class="se-p2">599元</p>
+               </div>
+           </div>
+           <div class="se-con">
+               <div class="se-con-title">
+                <img src="img/note!160x110.jpg" alt="红米手机Note">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">红米手机Note</p>
+                 <p class="se-p2">699元</p>
+               </div>
+           </div> 
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/note2!160x110.jpg" alt="红米手机Note2">
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">红米手机Note2</p>
+                  <p class="se-p2">799元</p>
+               </div>
+           </div>        
+         </li>
+         <li id="se-inf-con3">
+            <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/mipad16!160x110.jpg" alt="大米平板16G">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">大米平板16G</p>
+                  <p class="se-p2">1299元起</p>
+               </div>
+           </div>
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/mipad64!160x110.jpg" alt="大米平板64G">
+               
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">大米平板64G</p>
+                  <p class="se-p2">1499元起</p>
+               </div>
+           </div>
+         </li>
+         <li id="se-inf-con4">
+            <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/mitv40!160x110.jpg" alt="大米电视2 40英寸">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">大米电视2 40英寸</p>
+                  <p class="se-p2">1999元起</p>
+               </div>
+           </div>
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/mitv48!160x110.jpg" alt="大米电视2 48英寸">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">大米电视2 48英寸</p>
+                  <p class="se-p2">2999元起</p>
+               </div>
+           </div>
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/mitv49!160x110.jpg" alt="大米电视2 49英寸">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">大米电视2 49英寸</p>
+                  <p class="se-p2">3999元起</p>
+               </div>
+           </div>
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/mitv55!160x110.jpg" alt="大米电视2 55英寸">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">大米电视2 55英寸</p>
+                  <p class="se-p2">4999元起</p>
+               </div>
+           </div>
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/hezimini!160x110.jpg" alt="大米盒子MINI版">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">大米盒子MINI版</p>
+                  <p class="se-p2">199元起</p>
+               </div>
+           </div>
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/hezis!160x110.jpg" alt="大米盒子增强版">
+                
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">大米盒子增强版</p>
+                  <p class="se-p2">299元起</p>
+               </div>
+           </div>
+           
+         </li>
+         <li id="se-inf-con5">
+          <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/miwifi!160x110.jpg" alt="全新大米路由器">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">全新大米路由器</p>
+                  <p class="se-p2">699元</p>
+               </div>
+           </div>
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/miwifilite!160x110.jpg" alt="大米路由器 MINI">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">大米路由器 MINI</p>
+                  <p class="se-p2">129元</p>
+               </div>
+           </div>
+                 <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/miwifimini!160x110.jpg" alt="大米路由器 青春版">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">大米路由器 青春版</p>
+                  <p class="se-p2">79元</p>
+               </div>
+           </div>
+                 <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/wifiExtension!160x110.jpg" alt="大米WIFI 放大器">
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">大米WIFI 放大器</p>
+                  <p class="se-p2">39元</p>
+               </div>
+           </div>
+         </li>
+           
+         <li id="Se-inf-con6">
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/scale!160x110.jpg" alt="体重秤">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">体重秤</p>
+                  <p class="se-p2">99元</p>
+               </div>
+           </div>
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/xiaoyi!160x110.jpg" alt="摄像头">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">摄像头</p>
+                  <p class="se-p2">129元起</p>
+               </div>
+           </div>
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/yicamera!160x110.jpg" alt="运动相机">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">运动相机</p>
+                  <p class="se-p2">399元起</p>
+               </div>
+           </div>
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/ihealth!160x110.jpg" alt="血压计">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">血压计</p>
+                  <p class="se-p2">199元</p>
+               </div>
+           </div>
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/chazuo!160x110.jpg" alt="智能插座">
+                <span></span>
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">智能插座</p>
+                  <p class="se-p2">59元</p>
+               </div>
+           </div>
+           <div class="se-con">
+             <div class="se-con-title">
+                <img src="img/smart!160x110.jpg" alt="大米路由器 MINI">
+                
+               </div>
+               <div class="se-con-content">
+                  <p class="se-p1">查看全部智能硬件</p>
+                  <p class="se-p2"></p>
+               </div>
+           </div>
+         </li>
+       </ul>
+   </div>
+   <div class="search-content">
+      <div class="search-box">
+         <div class="search-text">
+           <input type="text" required name="搜索内容" value="2016最新商品">
+         </div>
+         <div class="search-go">
+           <span> GO</span>
+         </div>
+      </div>
+   </div>
+  </div>
+</div>
+<div class="top-main">
+   <div class="top-main-nav">
+      <div class="main-imgbox">
+         <img id="main-img" src="img/T1oTJjBKKT1RXrhCrK.jpg" >
+          <div class="control-left">
+            < 
+          </div>
+          <div class="control-right">
+             >  
+          </div>
+      </div>
+      <div class="top-main-navinfo">
+         <ul class="navinfo-title">
+            <li><a href="#">手机 平板<span>></span></a></li>
+            <ul class="navinfo-content">
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+            </ul>
+            <li><a href="#">电视 盒子<span>></span></a>
+            <ul class="navinfo-content">
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+            </ul>
+            </li>
+            <li><a href="#">路由器 智能配件<span>></span></a>
+            <ul class="navinfo-content">
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+            </ul>
+            </li>
+            <li><a href="#">移动电源 插线板<span>></span></a>
+            <ul class="navinfo-content">
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+            </ul>
+            </li>
+            <li><a href="#">耳机 音箱<span>></span></a>
+            <ul class="navinfo-content">
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+            </ul>
+            </li>
+            <li><a href="#">电池 存储卡<span>></span></a>
+            <ul class="navinfo-content">
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+            </ul>
+            </li>
+            <li><a href="#">保护套 后盖<span>></span></a>
+            <ul class="navinfo-content">
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+            </ul>
+            </li>
+            <li><a href="#">贴膜 其他配件<span>></span></a>
+            <ul class="navinfo-content">
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+            </ul>
+            </li>
+            <li><a href="#">米兔 服装<span>></span></a>
+            <ul class="navinfo-content">
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+            </ul>
+            </li>
+            <li><a href="#">背包 其他周边<span>></span></a>
+            <ul class="navinfo-content">
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+               <li><img src="img/hongmi2.jpg">&nbsp;&nbsp;红米手机2<span class="con-box">选购</span></li>
+            </ul>
+            </li>
+         </ul>
+         
+      </div>
+   </div>
+   <div class="top-main-activities">
+     <div class="top-main-acon">
+        <ul>
+           <li id="acon1"><p id="acon-p1">START</p><p id="acon-p2">开房购买</p></li>
+           <li id="acon2"><p id="acon-p1">GROUND</p><p id="acon-p2">企业团购</p></li>
+           <li id="acon3"><p id="acon-p1">RETROFIT</p><p id="acon-p2">官方产品</p></li>
+           <li id="acon4"><p id="acon-p1">CHANNEL</p><p id="acon-p2">F码通道</p></li>
+           <li id="acon5"><p id="acon-p1">RECHARGE</p><p id="acon-p2">话费充值</p></li>
+           <li id="acon6"><p id="acon-p1">SECURITY</p><p id="acon-p2">防伪检查</p></li>
+        </ul>
+     </div>
+     <div class="top-main-acimg1">
+        <img src="img/T184E_BQWT1RXrhCrK.jpg">
+     </div>
+     <div class="top-main-acimg2">
+       <img src="img/T1yvd_BQDT1RXrhCrK (1).jpg">
+     </div>
+     <div class="top-main-acimg3">
+        <img src="img/T1mahQBmKT1RXrhCrK (1).jpg">
+     </div>
+   </div>
+   <div class="dami-product">
+       <div class="dami-protitle">
+          <span id="t1">大米明星单品</span>
+          <span id="t2"><a href="#"><</a></span><span id="t3"><a href="#">></a></span>
+       </div>
+       <div class="dami-imgbox" id="img1">
+          <div class="dami-imgtitle" >
+             <img src="img/T1riKjB7VT1RXrhCrK.jpg">
+          </div>
+            <div class="dami-imgtext">
+               <p id="imgtext1">
+                  大米电视2/&nbsp;全系列
+               </p>
+                <p id="imgtext2">
+                   40/48/49/55英寸&nbsp;现货购买
+               </p>
+             </div>
+       </div>
+       <div class="dami-imgbox" id="img2">
+          <div class="dami-imgtitle">
+             <img src="img/T19AbjBCDT1RXrhCrK.jpg">
+          </div>
+           <div class="dami-imgtext">
+               <p id="imgtext1">
+                 大米平板
+               </p>
+                <p id="imgtext2">
+                  全球首款&nbsp;NVIDIA&Tegra&nbsp;K1&nbsp;平板
+               </p>
+             </div>
+       </div>
+       <div class="dami-imgbox" id="img3">
+          <div class="dami-imgtitle">
+             <img src="img/T1meZjBCAT1RXrhCrK.jpg">
+          </div>
+             <div class="dami-imgtext">
+               <p id="imgtext1">
+                  大米盒子增强版
+               </p>
+                <p id="imgtext2">
+                   首款4k超高清网络机顶盒
+               </p>
+             </div>
+       </div>
+       <div class="dami-imgbox" id="img4">
+          <div class="dami-imgtitle">
+             <img src="img/T1tsEgB7DT1RXrhCrK.jpg">
+          </div>
+           <div class="dami-imgtext">
+               <p id="imgtext1">
+                 全新大米路由器
+               </p>
+                <p id="imgtext2">
+                   顶配路由器，企业级性能
+               </p>
+             </div>
+       </div>
+       <div class="dami-imgbox" id="img5">
+          <div class="dami-imgtitle">
+             <img src="img/T10TJjB5hT1RXrhCrK.jpg">
+          </div>
+          <div class="dami-imgtext">
+               <p id="imgtext1">
+                  大米头戴式耳机
+               </p>
+                <p id="imgtext2">
+                  媲美主流千元级头戴耳机
+               </p>
+             </div>
+       </div>
+   </div>
+</div>
+<div class="dami-hardware">
+  <div class="hard-wrapper">
+   <div class="dami-hatitle">
+       智能硬件
+   </div>
+   <div class="dami-hacontent">
+         <a class="hacon-imgbox1">
+            <img src="img/T1IhLjBC_T1RXrhCrK.jpg">
+         </a>
+         <div class="hacon-imgbox2">
+             <a  href="#" class="hacon-imgcon">
+                <div class="imgcon-title">
+                   <img src="img/T1odEjB5bT1RXrhCrK.jpg">
+                </div>
+                <div class="imgcon-con">
+                   <p id="imgcon1">
+                      大米智能家庭套装
+                   </p>
+                    <p id="imgcon2">
+                      3分钟快速安装，30多种智能玩法
+                   </p>
+                    <p id="imgcon3">
+                    199元
+                   </p>
+                   
+                </div>
+             </a>
+             <a  href="#" class="hacon-imgcon">
+                <div class="imgcon-title">
+                   <img src="img/T1JKxvBXhv1RXrhCrK.jpg">
+                </div>
+                <div class="imgcon-con">
+                   <p id="imgcon1">
+                   大米随身Wifi&nbsp;8GB&nbsp;U盘版
+                      
+                   </p>
+                    <p id="imgcon2">
+                      随身上网神器，内置8GBu盘
+                   </p>
+                    <p id="imgcon3">
+                    49.9元
+                   </p>
+                   
+                </div>
+             </a>
+             <a  href="#" class="hacon-imgcon">
+                <div class="imgcon-title">
+                   <img src="img/T18yZQBCET1RXrhCrK.jpg">
+                </div>
+                <div class="imgcon-con">
+                   <p id="imgcon1">
+                      小蚁智能摄像机
+                   </p>
+                    <p id="imgcon2">
+                     能看能听能说，手机智能观看
+                   </p>
+                    <p id="imgcon3">
+                    149元
+                   </p>
+                   
+                </div>
+             </a>
+             <a href="#" class="hacon-imgcon">
+                <div class="imgcon-title">
+                   <img src="img/T1YoZQByYT1RXrhCrK.jpg">
+                </div>
+                <div class="imgcon-con">
+                   <p id="imgcon1">
+                      大米体重称
+                   </p>
+                    <p id="imgcon2">
+                    高精度压力传感器<span>|</span>手机管理全家健康
+                   </p>
+                    <p id="imgcon3">
+                    99元
+                   </p>
+                   
+                </div>
+             </a>
+         </div>
+         <div class="hacon-imgbox3">
+            <a href="#" class="hacon-imgcon">
+                <div class="imgcon-title">
+                   <img src="img/T16nVjBCKT1RXrhCrK.jpg">
+                </div>
+                <div class="imgcon-con">
+                   <p id="imgcon1">
+                      小蚁运动机
+                   </p>
+                    <p id="imgcon2">
+                       边玩边录边拍，手机随时观看
+                   </p>
+                    <p id="imgcon3">
+                    399元
+                   </p>
+                   
+                </div>
+             </a>
+             <a href="#" class="hacon-imgcon">
+                <div class="imgcon-title">
+                   <img src="img/T18zWQB4WT1RXrhCrK.jpg">
+                </div>
+                <div class="imgcon-con">
+                   <p id="imgcon1">
+                      大米路由器&nbsp;MINI
+                   </p>
+                    <p id="imgcon2">
+                    主流AC双频路由器，性价比之王
+                   </p>
+                    <p id="imgcon3">
+                    129元
+                   </p>
+                   
+                </div>
+             </a>
+             <a  href="#" class="hacon-imgcon">
+                <div class="imgcon-title">
+                   <img src="img/T1oixjB5bT1RXrhCrK.jpg">
+                </div>
+                <div class="imgcon-con">
+                   <p id="imgcon1">
+                      大米智能插座
+                   </p>
+                    <p id="imgcon2">
+                    手机远程遥控开关，带usb接口
+                   </p>
+                    <p id="imgcon3">
+                    59元
+                   </p>
+                   
+                </div>
+             </a>
+             <a href="#" class="hacon-imgcon">
+                <div class="imgcon-title">
+                   <img src="img/T1KzbQBvbT1RXrhCrK.jpg">
+                </div>
+                <div class="imgcon-con">
+                   <p id="imgcon1">
+                      大米水质TSD检测笔
+                   </p>
+                    <p id="imgcon2">
+                    准确检测家中水质纯度
+                   </p>
+                    <p id="imgcon3">
+                    49元
+                   </p>
+                   
+                </div>
+             </a>
+         </div>
+   </div>
+   </div>
+</div>
+<div class="footer">
+   <div class="footer-head">
+      <div class="fohe-con">
+         1小时快修服务
+         <span>|</span>
+      </div>
+       <div class="fohe-con">
+          7天无理由退货
+          <span>|</span>
+      </div>
+       <div class="fohe-con">
+         15天免费换货
+         <span>|</span>
+      </div>
+       <div class="fohe-con">
+         满150元包邮
+         <span>|</span>
+      </div>
+       <div class="fohe-con">
+        520余家售后网点
+      </div>
+   </div>
+   <div class="footer-main">
+      <div class="fama-left">
+         <div class="left-main">
+            <div class="left-title">
+               帮助中心
+            </div>
+            <div class="left-con">
+               <p>购物指南</p>
+               <p>支付方式</p>
+               <p>配送</p>
+            </div>
+         </div>
+          <div class="left-main">
+            <div class="left-title">
+               服务支持
+            </div>
+            <div class="left-con">
+                 <p>售后政策</p>
+               <p>自助服务</p>
+               <p>相关下载</p>
+               <p></p>
+            </div>
+         </div>
+          <div class="left-main">
+            <div class="left-title">
+              大米之家
+            </div>
+            <div class="left-con">
+                 <p>大米之家</p>
+               <p>服务网点</p>
+               <p>预约亲临到店服务</p>
+            </div>
+         </div>
+          <div class="left-main">
+            <div class="left-title">
+                关注我们
+            </div>
+            <div class="left-con">
+                 <p>新浪微博 </p>
+               <p>大米部落</p>
+               <p>官方微信</p>
+               
+            </div>
+         </div>
+      </div>
+      <div class="fama-right">
+         <div class="right-con">
+            <p  class="rp1"><a href="#">400-100-5678</a></p>
+            <p class="rp2"><a href="#">周一至周日&nbsp;8:00-18:00</a><br><a href="#">（仅收市话费）</a></p>
+            <p class="rp3">24小时在线客服</p>
+            
+         </div>
+      </div>
+   </div>
+   </div>
+   <div class="footer-foot">
+     <div class="foot-wrapper">
+      <div class="foot-head">
+         <img src="img/xiaomi_logo.png">
+      </div>
+      <div class="foot-main">
+         <div class="foma-con">
+           <a href="#">大米网</a>
+           <span>|</span>
+         </div>
+         <div class="foma-con">
+           <a href="#">MIUI</a>
+           <span>|</span>
+         </div>
+         <div class="foma-con">
+           <a href="#">米聊</a>
+           <span>|</span>
+         </div>
+         <div class="foma-con">
+           <a href="#">多看书城</a>
+           <span>|</span>
+         </div>
+         <div class="foma-con">
+           <a href="#">大米路由器</a>
+           <span>|</span>
+         </div>
+         <div class="foma-con">
+           <a href="#">大米后院</a>
+           <span>|</span>
+         </div>
+         <div class="foma-con">
+           <a href="#">大米天猫店</a>
+           <span>|</span>
+         </div>
+         <div class="foma-con">
+           <a href="#">大米淘宝直营店</a>
+           <span>|</span>
+         </div>
+         <div class="foma-con">
+           <a href="#">大米网盟</a>
+           <span>|</span>
+         </div>
+         <div class="foma-con">
+           <a href="#">问题反馈</a>
+           <span>|</span>
+         </div>
+         <div class="foma-con">
+           <a href="#">Select Region</a>
+         </div>
+         <div class="ri-phone">
+           <a href="#">5555555号</a>
+         </div>
+      </div>
+     </div>
+   </div>
+
+</body>
+</html>
